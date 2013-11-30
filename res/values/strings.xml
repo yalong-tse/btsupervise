@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 全局变量 -->
+    <string name="app_name">比特币监控平台</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- 主界面 -->
+    <string name="main_ui">系统导航界面</string>
+    <string name="settings">设置</string>
+    <string name="list_product_imageview_content">功能描述</string>
+    <string name="title_activity_market_monitor">MarketMonitorActivity</string>
+
+</resources>
