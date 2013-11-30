@@ -5,6 +5,7 @@
     android:background="@drawable/android_layout_bg"
     tools:context=".MainActivity" >
 
+    <!-- 主界面  -->
     <!-- 顶部标题 -->
 
     <include
@@ -24,7 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:horizontalSpacing="10dp"
-            android:numColumns="4"
+            android:numColumns="3"
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp" >
         </GridView>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+    <TextView
+            android:id="@+id/platform_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/platform_name"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    
+    <TextView
+            android:id="@+id/lastprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/last_price"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    
+    <TextView
+            android:id="@+id/buyprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/buy_price"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    
+    
+    <TextView
+            android:id="@+id/sellprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/sell_price"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    
+    <TextView
+            android:id="@+id/exchangeamount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/exchange_amount"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    
+
+</LinearLayout>

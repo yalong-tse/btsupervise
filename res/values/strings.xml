@@ -11,5 +11,15 @@
     <string name="settings">设置</string>
     <string name="list_product_imageview_content">功能描述</string>
     <string name="title_activity_market_monitor">MarketMonitorActivity</string>
+    
+    
+    <!-- 大盘趋势  -->
+    <string name="platform_name">交易平台</string>
+    <string name="last_price">最近成交价</string>
+    <string name="buy_price">买一价</string>
+    <string name="sell_price">卖一价</string>
+    <string name="exchange_amount">成交量</string>
 
+    
+    
 </resources>

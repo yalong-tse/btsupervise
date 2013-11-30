@@ -6,6 +6,7 @@
     android:gravity="center"
     android:orientation="vertical" >
     
+    <!-- 主界面中9宫格的内容 -->
     <ImageView android:id="@+id/main_menuitem_image" 
         android:contentDescription="@string/list_product_imageview_content"
         android:layout_width="80dp"
