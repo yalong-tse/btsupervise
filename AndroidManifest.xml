@@ -26,6 +26,10 @@
             android:name="com.dreaming.btsupervise.activity.MarketMonitorActivity"
             android:label="@string/title_activity_market_monitor" >
         </activity>
+        <activity
+            android:name="com.dreaming.btsupervise.activity.TaskActivity"
+            android:label="@string/title_activity_task" >
+        </activity>
     </application>
 
 </manifest>
