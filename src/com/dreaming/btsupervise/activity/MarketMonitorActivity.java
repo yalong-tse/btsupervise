@@ -7,13 +7,20 @@ import com.dreaming.btsupervise.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.ListView;
 
 public class MarketMonitorActivity extends Activity {
+	
+	private ListView listview = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_market_monitor);
+		
+		listview = (ListView) findViewById(R.id.list_market_listview);
+		
+		
 	}
 
 	@Override
