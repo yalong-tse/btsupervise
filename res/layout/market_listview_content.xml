@@ -11,7 +11,7 @@
             android:layout_weight="3"
             android:text="@string/platform_name"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     
     <TextView
             android:id="@+id/lastprice"
@@ -20,7 +20,7 @@
             android:layout_weight="3"
             android:text="@string/last_price"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     
     <TextView
             android:id="@+id/buyprice"
@@ -29,7 +29,7 @@
             android:layout_weight="3"
             android:text="@string/buy_price"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     
     
     <TextView
@@ -39,7 +39,7 @@
             android:layout_weight="3"
             android:text="@string/sell_price"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     
     <TextView
             android:id="@+id/exchangeamount"
@@ -48,7 +48,7 @@
             android:layout_weight="3"
             android:text="@string/exchange_amount"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     
 
 </LinearLayout>

@@ -82,8 +82,3 @@ public class Constants
   public static final int THREADMAXNUM = 2;
   public static final int TIMEOUT = -2;
 }
-
-/* Location:           C:\Users\Administrator\Desktop\classes_dex2jar\
- * Qualified Name:     com.renzhijian.btc.utils.Constants
- * JD-Core Version:    0.6.2
- */

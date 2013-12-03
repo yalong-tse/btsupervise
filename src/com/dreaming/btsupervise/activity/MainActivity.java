@@ -37,9 +37,9 @@ public class MainActivity extends Activity {
 		gridview = (GridView) findViewById(R.id.main_gridview);
 
 		for (int i = 0; i < GlobalConstants.items.length; i++) {
-			System.out.println("111111111111");
-			Log.d("TEST","111111111");
-			Log.d("test","the i:"+i);
+			//System.out.println("111111111111");
+			//Log.d("TEST","111111111");
+			//Log.d("test","the i:"+i);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			if (i == 0)
 				map.put("image", R.drawable.module12);
