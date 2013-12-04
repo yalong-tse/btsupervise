@@ -5,18 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.dreaming.btsupervise.R;
-import com.dreaming.btsupervise.R.layout;
-import com.dreaming.btsupervise.R.menu;
-import com.dreaming.btsupervise.adapter.MarketMonitorListviewAdapter;
-import com.dreaming.btsupervise.beans.BTCList;
-import com.dreaming.btsupervise.beans.Btc;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
+
+import com.dreaming.btsupervise.R;
+import com.dreaming.btsupervise.adapter.MarketMonitorListviewAdapter;
+import com.dreaming.btsupervise.beans.BTCList;
+import com.dreaming.btsupervise.beans.Btc;
 
 public class MarketMonitorActivity extends Activity {
 	
@@ -36,9 +35,16 @@ public class MarketMonitorActivity extends Activity {
 		Log.d("TEST","11111111111111111");
 		MarketMonitorListviewAdapter adapter = new MarketMonitorListviewAdapter(this,listitems);
 		listview.setAdapter(adapter);
-		Log.d("TEST","22222222222222222222222");
-		
-		
+		//启动服务
+		Log.d("TEST", "qianjin1");
+        Intent intent = new Intent();
+        Log.d("TEST", "qianjin2");
+        Bundle bundle  = new Bundle();
+        Log.d("TEST", "qianjin3");
+        intent.putExtras(bundle);
+        Log.d("TEST", "qianjin4");
+        startService(intent);
+        Log.d("TEST", "qianjin5");
 	}
 
 	@Override
