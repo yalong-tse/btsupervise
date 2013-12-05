@@ -132,93 +132,90 @@ public class ServerMethod
 
   public static void addServerMethod(TaskActivity paramTaskActivity, String paramString)
   {
-    if (paramString.equals("Mt.Gox"))
-    {
-      TaskParams localTaskParams17 = TaskParamsManager.getInstance().getMtgoxParams();
-      TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams17));
-    }
-    while (true)
-    {
-      if (paramString.equals("Bitstamp"))
-      {
-        TaskParams localTaskParams16 = TaskParamsManager.getInstance().getBitstampParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams16));
-      }
-      else if (paramString.equals("btc-e"))
-      {
-        TaskParams localTaskParams15 = TaskParamsManager.getInstance().getBtceUrlParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams15));
-      }
-      else if (paramString.equals("796期货"))
-      {
-        TaskParams localTaskParams14 = TaskParamsManager.getInstance().get796UrlParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams14));
-      }
-      else if (paramString.equals("比特币中国"))
-      {
-        TaskParams localTaskParams13 = TaskParamsManager.getInstance().getBtcchinaParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams13));
-      }
-      else if (paramString.equals("btcTrade"))
-      {
-        TaskParams localTaskParams12 = TaskParamsManager.getInstance().getBtctradeParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams12));
-      }
-      else if (paramString.equals("FXBTC"))
-      {
-        TaskParams localTaskParams11 = TaskParamsManager.getInstance().getFxbtcParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams11));
-      }
-      else if (paramString.equals("OkCoin"))
-      {
-        TaskParams localTaskParams10 = TaskParamsManager.getInstance().getOkcoinParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams10));
-      }
-      else if (paramString.equals("BTC100"))
-      {
-        TaskParams localTaskParams9 = TaskParamsManager.getInstance().getBtc100Params();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams9));
-      }
-      else if (paramString.equals("火币网"))
-      {
-        TaskParams localTaskParams8 = TaskParamsManager.getInstance().getHuobiParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams8));
-      }
-      else if (paramString.equals("比特儿Bter"))
-      {
-        TaskParams localTaskParams7 = TaskParamsManager.getInstance().getBterParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams7));
-      }
-      else if (paramString.equals("人盟比特币"))
-      {
-        TaskParams localTaskParams6 = TaskParamsManager.getInstance().getRmbtbParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams6));
-      }
-      else if (paramString.equals("GoXBTC"))
-      {
-        TaskParams localTaskParams5 = TaskParamsManager.getInstance().getGoxbtcParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams5));
-      }
-      else if (paramString.equals("btc-e(ltc)"))
-      {
-        TaskParams localTaskParams4 = TaskParamsManager.getInstance().getBtceLtcParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams4));
-      }
-      else if (paramString.equals("FXBTC(ltc)"))
-      {
-        TaskParams localTaskParams3 = TaskParamsManager.getInstance().getFxbtcLtcParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams3));
-      }
-      else if (paramString.equals("btcTrade(ltc)"))
-      {
-        TaskParams localTaskParams2 = TaskParamsManager.getInstance().getBtctradeLtcParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams2));
-      }
-      else if (paramString.equals("OkCoin(ltc)"))
-      {
-        TaskParams localTaskParams1 = TaskParamsManager.getInstance().getOkcoinLtcParams();
-        TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams1));
-      }
-    }
+	   if (paramString.equals("Mt.Gox"))
+	   {
+	      TaskParams localTaskParams17 = TaskParamsManager.getInstance().getMtgoxParams();
+	      TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams17));
+	   }
+	   else if (paramString.equals("Bitstamp"))
+	  {
+	    TaskParams localTaskParams16 = TaskParamsManager.getInstance().getBitstampParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams16));
+	  }
+	  else if (paramString.equals("btc-e"))
+	  {
+	    TaskParams localTaskParams15 = TaskParamsManager.getInstance().getBtceUrlParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams15));
+	  }
+	  else if (paramString.equals("796期货"))
+	  {
+	    TaskParams localTaskParams14 = TaskParamsManager.getInstance().get796UrlParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams14));
+	  }
+	  else if (paramString.equals("比特币中国"))
+	  {
+	    TaskParams localTaskParams13 = TaskParamsManager.getInstance().getBtcchinaParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams13));
+	  }
+	  else if (paramString.equals("btcTrade"))
+	  {
+	    TaskParams localTaskParams12 = TaskParamsManager.getInstance().getBtctradeParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams12));
+	  }
+	  else if (paramString.equals("FXBTC"))
+	  {
+	    TaskParams localTaskParams11 = TaskParamsManager.getInstance().getFxbtcParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams11));
+	  }
+	  else if (paramString.equals("OkCoin"))
+	  {
+	    TaskParams localTaskParams10 = TaskParamsManager.getInstance().getOkcoinParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams10));
+	  }
+	  else if (paramString.equals("BTC100"))
+	  {
+	    TaskParams localTaskParams9 = TaskParamsManager.getInstance().getBtc100Params();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams9));
+	  }
+	  else if (paramString.equals("火币网"))
+	  {
+	    TaskParams localTaskParams8 = TaskParamsManager.getInstance().getHuobiParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams8));
+	  }
+	  else if (paramString.equals("比特儿Bter"))
+	  {
+	    TaskParams localTaskParams7 = TaskParamsManager.getInstance().getBterParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams7));
+	  }
+	  else if (paramString.equals("人盟比特币"))
+	  {
+	    TaskParams localTaskParams6 = TaskParamsManager.getInstance().getRmbtbParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams6));
+	  }
+	  else if (paramString.equals("GoXBTC"))
+	  {
+	    TaskParams localTaskParams5 = TaskParamsManager.getInstance().getGoxbtcParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams5));
+	  }
+	  else if (paramString.equals("btc-e(ltc)"))
+	  {
+	    TaskParams localTaskParams4 = TaskParamsManager.getInstance().getBtceLtcParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams4));
+	  }
+	  else if (paramString.equals("FXBTC(ltc)"))
+	  {
+	    TaskParams localTaskParams3 = TaskParamsManager.getInstance().getFxbtcLtcParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams3));
+	  }
+	  else if (paramString.equals("btcTrade(ltc)"))
+	  {
+	    TaskParams localTaskParams2 = TaskParamsManager.getInstance().getBtctradeLtcParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams2));
+	  }
+	  else if (paramString.equals("OkCoin(ltc)"))
+	  {
+	    TaskParams localTaskParams1 = TaskParamsManager.getInstance().getOkcoinLtcParams();
+	    TaskQueueManager.add(new HttpRequestTask(new TaskViewHolder(paramTaskActivity), localTaskParams1));
+	  }
   }
 }

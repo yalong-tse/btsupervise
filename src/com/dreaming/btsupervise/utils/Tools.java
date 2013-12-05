@@ -1,4 +1,4 @@
-//package com.dreaming.btsupervise.utils;
+package com.dreaming.btsupervise.utils;
 //
 //
 //import android.content.Context;
@@ -27,8 +27,8 @@
 //import java.util.Date;
 //import java.util.UUID;
 //
-//public class Tools
-//{
+public class Tools
+{
 //  public static byte[] Bitmap2Bytes(Bitmap paramBitmap)
 //  {
 //    ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
@@ -107,21 +107,13 @@
 //    }
 //  }
 //
-//  public static String decode(String paramString)
-//  {
-//    try
-//    {
+  private static String decode(String paramString)
+  {
 //      String str = decode(paramString.toCharArray());
 //      paramString = str;
-//      return paramString;
-//    }
-//    catch (Exception localException)
-//    {
-//      while (true)
-//        localException.printStackTrace();
-//    }
-//  }
-//
+      return paramString;
+  }
+
 //  private static String decode(char[] paramArrayOfChar)
 //    throws Exception
 //  {
@@ -398,3 +390,4 @@
 //    }
 //  }
 //}
+}

@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ListView;
@@ -16,12 +19,15 @@ import com.dreaming.btsupervise.R;
 import com.dreaming.btsupervise.adapter.MarketMonitorListviewAdapter;
 import com.dreaming.btsupervise.beans.BTCList;
 import com.dreaming.btsupervise.beans.Btc;
+import com.dreaming.btsupervise.net.ServiceBtc;
 
 public class MarketMonitorActivity extends Activity {
 	
 	private ListView listview = null;
 	
 	private List<Map<String,Object>> listitems;
+	
+	private static final String TAG = "MarketMonitorActivity";  
 	
 
 	@Override
@@ -37,15 +43,23 @@ public class MarketMonitorActivity extends Activity {
 		listview.setAdapter(adapter);
 		//启动服务
 		Log.d("TEST", "qianjin1");
-        Intent intent = new Intent();
+        Intent intent = new Intent("com.dreaming.btsupervise.net.ServiceBtc");
         Log.d("TEST", "qianjin2");
-        Bundle bundle  = new Bundle();
+        bindService(new Intent(ServiceBtc.ACTION), conn, BIND_AUTO_CREATE);  
         Log.d("TEST", "qianjin3");
-        intent.putExtras(bundle);
-        Log.d("TEST", "qianjin4");
         startService(intent);
-        Log.d("TEST", "qianjin5");
+        Log.d("TEST", "qianjin4");
+        stopService(intent);
 	}
+	
+	ServiceConnection conn = new ServiceConnection() {  
+        public void onServiceConnected(ComponentName name, IBinder service) {  
+            Log.v(TAG, "onServiceConnected");  
+        }  
+        public void onServiceDisconnected(ComponentName name) {  
+            Log.v(TAG, "onServiceDisconnected");  
+        }  
+    };  
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
