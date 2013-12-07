@@ -15,7 +15,6 @@ public abstract class Task
   static final int WITHOUT = 3;
   private static HashMap<String, Task> nameTasks = new HashMap();
   protected Context context;
-  String debug = getClass().getSimpleName();
   protected Handler handler;
   protected OnFinishListen onFinishListen;
   protected OnProgressListen onProgressListen;
@@ -273,7 +272,3 @@ public abstract class Task
   }
 }
 
-/* Location:           C:\Users\Administrator\Desktop\classes_dex2jar\
- * Qualified Name:     com.renzhijian.btc.net.Task
- * JD-Core Version:    0.6.2
- */

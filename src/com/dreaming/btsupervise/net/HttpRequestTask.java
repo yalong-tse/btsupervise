@@ -61,6 +61,7 @@ public class HttpRequestTask extends Task
 //        Log.e(TAG, "------------------SocketTimeoutException-----------------------");
 //      }
 //    }
+    
     catch (IOException localIOException)
     {
       while (true)
@@ -94,7 +95,7 @@ public class HttpRequestTask extends Task
     try
     {
       if (this.status == 2)
-        Log.i(this.debug, "编号" + this.taskId + "任务中断");
+        //Log.i(this.debug, "编号" + this.taskId + "任务中断");
       setWithout();
       if (this.thread != null)
         this.thread.interrupt();

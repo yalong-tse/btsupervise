@@ -48,8 +48,8 @@ public class MarketMonitorActivity extends Activity {
         bindService(new Intent(ServiceBtc.ACTION), conn, BIND_AUTO_CREATE);  
         Log.d("TEST", "qianjin3");
         startService(intent);
-        Log.d("TEST", "qianjin4");
-        stopService(intent);
+//        Log.d("TEST", "qianjin4");
+//        stopService(intent);
 	}
 	
 	ServiceConnection conn = new ServiceConnection() {  
