@@ -14,31 +14,26 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.dreaming.btsupervise.R;
-import com.dreaming.btsupervise.adapter.MarketMonitorListviewAdapter;
-import com.dreaming.btsupervise.beans.BTCList;
 import com.dreaming.btsupervise.beans.Btc;
-import com.dreaming.btsupervise.db.BtcService;
 
-import android.app.Activity;
-import android.app.Service;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
-import android.widget.ListView;
 
 public class GatherTaskService implements Runnable {
 
 	// 持有父亲的 mHandler
 	private Handler mHandler;
 	
+	// 持有父亲的context
+	private Context context;
+	
 	private boolean isrun = true;
 	
-	public GatherTaskService(Handler $mHandler)
+	public GatherTaskService(Context $context,Handler $mHandler)
 	{
+		this.context = $context ; 
 		this.mHandler = $mHandler;
 	}
 	
@@ -53,63 +48,55 @@ public class GatherTaskService implements Runnable {
 			Log.d("调试", "开始线程");
 			Message msg = mHandler.obtainMessage();
 			msg.what = 1;
-			Btc btc = getdata();
-			msg.obj = btc;
+			getdata();
+			//msg.obj = btc;
 			msg.sendToTarget();
 			try 
 			{
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
 	}
 
-	public Btc getdata() {
+	/**
+	 * 此处解析完毕后直接存储到DB 
+	 * */
+	public void getdata() {
 		String paramString;
-		//ServerMethod sm = new ServerMethod();
 		JSONObject paramJSONObject = null;
 		Btc localBtc = new Btc();
-		
 		try 
 		{
 			TaskParams localTaskParams = new TaskParams();
 			localTaskParams.url = "https://data.btcchina.com/data/ticker";
-			localTaskParams.singletonName = "比特币中国";
+			localTaskParams.singletonName = "btcchina";
 			localTaskParams.taskId = 100;
 			HttpResponse localHttpResponse = getHttpClient().execute(new HttpGet(localTaskParams.url));
 			paramString = EntityUtils.toString(localHttpResponse.getEntity(),"utf-8");
-			// Log.i(TAG, "result = " + Tools.decode(paramString));
 			paramJSONObject = new JSONObject(paramString);
-
-			JSONObject localJSONObject = paramJSONObject.getJSONObject("ticker");
-			localBtc.high = localJSONObject.getDouble("high");
-			localBtc.low = localJSONObject.getDouble("low");
-			localBtc.vol = localJSONObject.getDouble("vol");
-			localBtc.last = localJSONObject.getDouble("last");
-			localBtc.sell = localJSONObject.getDouble("sell");
-			localBtc.buy = localJSONObject.getDouble("buy");
-			localBtc.name = localTaskParams.singletonName;
+			JSONParser parser = new JSONParser(this.context,localTaskParams);
+			parser.parseBtcchina(paramJSONObject);
 			
-			return localBtc;
-			
-		} catch (JSONException e) {
-
-			// TODO Auto-generated catch block
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (JSONException e) 
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (ClientProtocolException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
-		return localBtc;
-
 	}
 
-	public HttpClient getHttpClient() {
+	
+	public HttpClient getHttpClient() 
+	{
 		BasicHttpParams localBasicHttpParams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(localBasicHttpParams, 10000);
 		HttpConnectionParams.setSoTimeout(localBasicHttpParams, 10000);

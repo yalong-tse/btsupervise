@@ -6,6 +6,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.dreaming.btsupervise.beans.Btc;
 
 public class BtcService extends BaseService 
@@ -33,8 +35,7 @@ public class BtcService extends BaseService
 	/**
 	 * 查看记录是否存在
 	 * */
-	private boolean findIfExist(SQLiteDatabase paramSQLiteDatabase,
-			String paramString) {
+	private boolean findIfExist(SQLiteDatabase paramSQLiteDatabase,String paramString) {
 		boolean result = false;
 		String[] arrayOfString1 = new String[0];
 		String[] arrayOfString2 = new String[1];
@@ -53,10 +54,10 @@ public class BtcService extends BaseService
 	/**
 	 * 根据名称删除数据
 	 * */
-	public boolean deleteByName(String paramString) {
+	public boolean deleteByName(String paramString) 
+	{
 		boolean result = false;
-		SQLiteDatabase localSQLiteDatabase = this.dbHelper
-				.getWritableDatabase();
+		SQLiteDatabase localSQLiteDatabase = this.dbHelper.getWritableDatabase();
 		String[] arrayOfString = new String[]{paramString};
 		if (localSQLiteDatabase.delete("btc", "name=?", arrayOfString) > 0)
 		{
@@ -85,8 +86,7 @@ public class BtcService extends BaseService
 	{
 		SQLiteDatabase localSQLiteDatabase = this.dbHelper.getReadableDatabase();
 		Btc localBtc = null;
-		String[] arrayOfString = new String[]{paramString};
-		Cursor localCursor = localSQLiteDatabase.query("btc", null, "name=?",arrayOfString, null, null, null);
+		Cursor localCursor = localSQLiteDatabase.query("btc", null, "name=?",new String[]{paramString}, null, null, null);
 		if ((localCursor != null) && (localCursor.getCount() > 0)&& (localCursor.moveToNext())) 
 		{
 			localBtc = new Btc();
@@ -114,12 +114,12 @@ public class BtcService extends BaseService
 		SQLiteDatabase localSQLiteDatabase = this.dbHelper.getReadableDatabase();
 		List<Btc> btcList  = new ArrayList<Btc>();
 		
-		Cursor localCursor = localSQLiteDatabase.query("btc", this.columns,null, null, null, null, "id asc");
+		Cursor localCursor = localSQLiteDatabase.query(DBHelper.BTC_TABLE_NAME, this.columns,null, null, null, null, "id asc");
 		
+		Log.d("DB","query database");
 		
-		while ((localCursor != null) && (localCursor.getCount() > 0))
+		while (localCursor.moveToNext())
 		{
-			
 			Btc localBtc = new Btc();
 			localBtc.order = localCursor.getInt(localCursor.getColumnIndex("id"));
 			localBtc.name = localCursor.getString(localCursor.getColumnIndex("name"));
@@ -132,11 +132,12 @@ public class BtcService extends BaseService
 			localBtc.vol = localCursor.getDouble(localCursor.getColumnIndex("vol"));
 			localBtc.kind = localCursor.getInt(localCursor.getColumnIndex("kind"));
 			localBtc.state = localCursor.getInt(localCursor.getColumnIndex("state"));
+			Log.d("DB","query database: " + localBtc.name);
 			btcList.add(localBtc);
-			localCursor.moveToNext();
-			
+			//if(!localCursor.isLast()) localCursor.moveToNext();
 		}
 		
+		Log.d("DB","query database finish");
 		return btcList;
 	}
 
@@ -164,7 +165,7 @@ public class BtcService extends BaseService
 
 	
 	/**
-	 * 
+	 *  
 	 * */
 	public void saveOrUpdate(SQLiteDatabase paramSQLiteDatabase, Btc paramBtc) {
 		ContentValues localContentValues = new ContentValues();
@@ -200,7 +201,6 @@ public class BtcService extends BaseService
 		{
 			paramSQLiteDatabase.insert("btc", null, localContentValues);
 		}
-
 	}
 
 	public void saveOrUpdate(Btc paramBtc) {

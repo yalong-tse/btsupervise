@@ -10,31 +10,39 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.dreaming.btsupervise.beans.Btc;
 import com.dreaming.btsupervise.beans.Trade;
 import com.dreaming.btsupervise.beans.Trust;
 import com.dreaming.btsupervise.db.BtcService;
+import com.dreaming.btsupervise.utils.GlobalConstants;
 
-public class JsonParser 
+public class JSONParser 
 {
 	private static final int MAX_NUM = 60;
 	private Context context;
 	private SharedPreferences sharedPrefs;
 	private TaskParams taskParams;
 
-	public JsonParser(Context paramContext, TaskParams paramTaskParams) {
+	public JSONParser(Context paramContext, TaskParams paramTaskParams) {
 		this.context = paramContext;
 		this.taskParams = paramTaskParams;
-		this.sharedPrefs = paramContext.getSharedPreferences("iyiyun_map", 0);
+		
+		this.sharedPrefs = context.getSharedPreferences(GlobalConstants.PREFERENCE_NAME, GlobalConstants.MODE);
 	}
 
 	
-	private int parseBtcchina(JSONObject paramJSONObject) throws JSONException 
+	public Boolean parseBtcchina(JSONObject paramJSONObject) throws JSONException 
 	{
+		Boolean result = false;
 		BtcService localBtcService = new BtcService(this.context);
 		Btc localBtc = new Btc(this.sharedPrefs.getInt("order比特币中国", 1),"比特币中国", 1);
-		this.taskParams.resultData.btc = localBtc;
+		
+		Log.d("test",localBtc.name + "");
+		
+		//this.taskParams.resultData.btc = localBtc;
+		
 		JSONObject localJSONObject = paramJSONObject.getJSONObject("ticker");
 		localBtc.high = localJSONObject.getDouble("high");
 		localBtc.low = localJSONObject.getDouble("low");
@@ -43,15 +51,22 @@ public class JsonParser
 		localBtc.sell = localJSONObject.getDouble("sell");
 		localBtc.buy = localJSONObject.getDouble("buy");
 		
+		Log.d("test",localBtc.name + "");
+		
+		// 直接存储到数据库中 
 		if (this.sharedPrefs.getBoolean("show比特币中国", false))
 		{
 			localBtcService.saveOrUpdate(localBtc);
+			result = true;
 		}
 		else
 		{
 			localBtcService.deleteByName("比特币中国");
-		}	
-		return 1;
+			result = true;
+		}
+		
+		return result;
+		
 	}
 
 	// private void parseBtcchinaDeep(JSONObject paramJSONObject)
@@ -139,7 +154,9 @@ public class JsonParser
 
 	
 	/**
+	 * 
 	 * 统一的解析JSON的入口，不同的网站调用不同的解析方法
+	 * 
 	 * */
 	public int parseJson(String paramString) {
 		int i = 0;
@@ -147,7 +164,7 @@ public class JsonParser
 			try {
 				switch (this.taskParams.taskId) {
 				case 100:
-					i = parseBtcchina(new JSONObject(paramString));
+					//i = parseBtcchina(new JSONObject(paramString));
 					// parseBtcchinaDeep(new JSONArray(paramString));
 					parseBtcchinaTrade(new JSONArray(paramString));
 					JSONObject localJSONObject8 = new JSONObject(paramString);

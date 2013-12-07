@@ -13,7 +13,9 @@ import com.dreaming.btsupervise.utils.GlobalConstants;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -29,6 +31,9 @@ public class MainActivity extends Activity {
 
 	private GridView gridview;
 
+	protected SharedPreferences sharedPrefs;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -118,6 +123,9 @@ public class MainActivity extends Activity {
 			}
 
 		});
+		
+		
+		buildingPreference();
 	}
 
 	@Override
@@ -127,4 +135,61 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	
+	
+	public void buildingPreference()
+	{
+		this.sharedPrefs = this.getSharedPreferences(GlobalConstants.PREFERENCE_NAME, GlobalConstants.MODE);
+		
+		if (!this.sharedPrefs.getBoolean("first2", true)) return;
+		
+		SharedPreferences.Editor localEditor = this.sharedPrefs.edit();
+	    localEditor.putBoolean("first2", false);
+	    localEditor.putBoolean("showMt.Gox", true);
+	    localEditor.putBoolean("show比特币中国", true);
+	    localEditor.putBoolean("showOkCoin", true);
+	    localEditor.putBoolean("show火币网", true);
+	    localEditor.putBoolean("showbtc-e(ltc)", true);
+	    localEditor.putBoolean("showFXBTC(ltc)", true);
+	    
+	    // 定义顺序
+	    localEditor.putInt("orderMt.Gox", 1);
+	    localEditor.putInt("orderBitstamp", 2);
+	    localEditor.putInt("orderbtc-e", 3);
+	    localEditor.putInt("order796期货", 4);
+	    localEditor.putInt("order比特币中国", 5);
+	    localEditor.putInt("orderbtcTrade", 6);
+	    localEditor.putInt("orderFXBTC", 7);
+	    localEditor.putInt("orderOkCoin", 8);
+	    localEditor.putInt("orderBTC100", 9);
+	    localEditor.putInt("order火币网", 10);
+	    localEditor.putInt("order比特儿Bter", 11);
+	    localEditor.putInt("order人盟比特币", 12);
+	    localEditor.putInt("orderGoXBTC", 13);
+	    localEditor.putInt("orderbtc-e(ltc)", 14);
+	    localEditor.putInt("orderFXBTC(ltc)", 15);
+	    localEditor.putInt("orderbtcTrade(ltc)", 16);
+	    localEditor.putInt("orderOkCoin(ltc)", 17);
+	    
+	    // 定义货币种类
+	    localEditor.putInt("kindMt.Gox", 2);
+	    localEditor.putInt("kindBitstamp", 2);
+	    localEditor.putInt("kindbtc-e", 2);
+	    localEditor.putInt("kind796期货", 2);
+	    localEditor.putInt("kind比特币中国", 1);
+	    localEditor.putInt("kindbtcTrade", 1);
+	    localEditor.putInt("kindFXBTC", 1);
+	    localEditor.putInt("kindOkCoin", 1);
+	    localEditor.putInt("kindBTC100", 1);
+	    localEditor.putInt("kind火币网", 1);
+	    localEditor.putInt("kind比特儿Bter", 1);
+	    localEditor.putInt("kind人盟比特币", 1);
+	    localEditor.putInt("kindGoXBTC", 1);
+	    localEditor.putInt("kindbtc-e(ltc)", 4);
+	    localEditor.putInt("kindFXBTC(ltc)", 3);
+	    localEditor.putInt("kindbtcTrade(ltc)", 3);
+	    localEditor.putInt("kindOkCoin(ltc)", 3);
+	    localEditor.commit();
+	    
+	}
 }

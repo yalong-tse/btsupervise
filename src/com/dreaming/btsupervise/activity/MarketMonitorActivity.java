@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -21,6 +22,7 @@ import com.dreaming.btsupervise.R;
 import com.dreaming.btsupervise.adapter.MarketMonitorListviewAdapter;
 import com.dreaming.btsupervise.beans.BTCList;
 import com.dreaming.btsupervise.beans.Btc;
+import com.dreaming.btsupervise.db.BtcService;
 import com.dreaming.btsupervise.net.GatherTaskService;
 import com.dreaming.btsupervise.net.ServiceBtc;
 
@@ -43,10 +45,9 @@ public class MarketMonitorActivity extends Activity {
 			if(message.what==1)
 			{
 				Log.d("开始更新界面", "开始更新界面");
-				Btc btc = (Btc) message.obj;
-				
-				Log.d("test",btc.last + "");
-				BTCList.getInstance().getBtcs().add(btc);
+				//Btc btc = (Btc) message.obj;
+				//Log.d("test",btc.last + "");
+				//BTCList.getInstance().getBtcs().add(btc);
 				refreshui();
 			}
 			
@@ -66,8 +67,7 @@ public class MarketMonitorActivity extends Activity {
         //startService(intent);
         //stopService(intent);
 		
-		Runnable runnable = new GatherTaskService(this.mHandler);
-		
+		Runnable runnable = new GatherTaskService(this,this.mHandler);
 		mThread = new Thread(runnable);
 		mThread.start();
 		
@@ -93,9 +93,10 @@ public class MarketMonitorActivity extends Activity {
 	private List<Map<String,Object>> getListItems()
 	{
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
-		//BTCList.getInstance().setBtcs(btcs);
-		Log.d("TEST",BTCList.getInstance().getBtcs().size() + "===========");
-		for(Btc btc: BTCList.getInstance().getBtcs())
+		
+		BtcService localBtcService = new BtcService(this);
+		
+		for(Btc btc: localBtcService.findBtcs())
 		{
 			Map<String,Object> map = new HashMap<String,Object>();
 			map.put("name", btc.name);

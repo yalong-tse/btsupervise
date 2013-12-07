@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * 
+ * 数据库操作的基础类
+ * 
  * */
 public class BaseService 
 {
