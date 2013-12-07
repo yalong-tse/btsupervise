@@ -1,6 +1,8 @@
 package com.dreaming.btsupervise.net;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -13,81 +15,74 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.dreaming.btsupervise.R;
+import com.dreaming.btsupervise.adapter.MarketMonitorListviewAdapter;
+import com.dreaming.btsupervise.beans.BTCList;
 import com.dreaming.btsupervise.beans.Btc;
 import com.dreaming.btsupervise.db.BtcService;
 
+import android.app.Activity;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
+import android.widget.ListView;
 
-public class ServiceBtc extends Service {
+public class GatherTaskService implements Runnable {
 
-	private static final String TAG = "MyService";
-	public static final String ACTION = "com.lql.service.ServiceDemo";
-	private Context context;
-	private SharedPreferences sharedPrefs;
-	private TaskParams taskParams;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Service#onBind(android.content.Intent)
-	 */
+	// 持有父亲的 mHandler
+	private Handler mHandler;
+	
+	private boolean isrun = true;
+	
+	public GatherTaskService(Handler $mHandler)
+	{
+		this.mHandler = $mHandler;
+	}
+	
+	
+	// 获取任务之后就发送消息给主UI线程就可以了。
+	
 	@Override
-	public IBinder onBind(Intent arg0) {
-		Log.d("TEST", "qianjinService6");
-		return null;
+	public void run() {
+		
+		while(isrun)
+		{
+			Log.d("调试", "开始线程");
+			Message msg = mHandler.obtainMessage();
+			msg.what = 1;
+			Btc btc = getdata();
+			msg.obj = btc;
+			msg.sendToTarget();
+			try 
+			{
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
-	@Override
-	public void onCreate() {
-		Log.v(TAG, "onCreate");
-		Log.d("TEST", "qianjinService7");
-		// if (mediaPlayer == null) {
-		// mediaPlayer = MediaPlayer.create(this, R.raw.tmp);
-		// mediaPlayer.setLooping(false);
-		// }
-	}
-
-	@Override
-	public void onDestroy() {
-		Log.v(TAG, "onDestroy");
-		Log.d("TEST", "qianjinService8");
-		// if (mediaPlayer != null) {
-		// mediaPlayer.stop();
-		// mediaPlayer.release();
-		// }
-	}
-
-	@Override
-	public void onStart(Intent intent, int startId) {
-		Log.v(TAG, "onStart");
-		Log.d("TEST", "qianjinService9");
+	public Btc getdata() {
 		String paramString = "比特币中国";
-		ServerMethod sm = new ServerMethod();
-		Log.d("TEST", "qianjina");
+		//ServerMethod sm = new ServerMethod();
 		JSONObject paramJSONObject = null;
-		BtcService localBtcService = new BtcService(this.context);
-		Log.d("TEST", "qianjinb");
 		Btc localBtc = new Btc();
-		Log.d("TEST", "qianjinc" + paramString);
-		try {
+		
+		try 
+		{
 			TaskParams localTaskParams = new TaskParams();
 			localTaskParams.url = "https://data.btcchina.com/data/ticker";
 			localTaskParams.singletonName = "比特币中国";
 			localTaskParams.taskId = 100;
-			
 			Log.d("TEST", "qianjind" + localTaskParams.url);
-			
 			HttpResponse localHttpResponse = getHttpClient().execute(new HttpGet(localTaskParams.url));
-			
 			paramString = EntityUtils.toString(localHttpResponse.getEntity(),"utf-8");
 			// Log.i(TAG, "result = " + Tools.decode(paramString));
-			
-			
 			Log.d("TEST", "qianjine" + paramString);
 			paramJSONObject = new JSONObject(paramString);
 
@@ -100,6 +95,8 @@ public class ServiceBtc extends Service {
 			localBtc.last = localJSONObject.getDouble("last");
 			localBtc.sell = localJSONObject.getDouble("sell");
 			localBtc.buy = localJSONObject.getDouble("buy");
+			localBtc.name = paramString;
+			
 			Log.d("TEST", "qianjin" + localBtc.buy);
 			Log.d("TEST", "qianjin" + localBtc.high);
 			Log.d("TEST", "qianjin" + localBtc.low);
@@ -107,9 +104,12 @@ public class ServiceBtc extends Service {
 			Log.d("TEST", "qianjin" + localBtc.last);
 			Log.d("TEST", "qianjin" + localBtc.sell);
 			Log.d("TEST", "qianjin" + localBtc.buy);
+			
+			return localBtc;
+			
 		} catch (JSONException e) {
+
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,16 +117,11 @@ public class ServiceBtc extends Service {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return localBtc;
 
-		if (this.sharedPrefs.getBoolean("show比特币中国", false)) {
-			// localBtcService.saveOrUpdate(localBtc);
-		} else {
-			localBtcService.deleteByName("比特币中国");
-		}
 	}
 
-	public HttpClient getHttpClient() 
-	{
+	public HttpClient getHttpClient() {
 		BasicHttpParams localBasicHttpParams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(localBasicHttpParams, 10000);
 		HttpConnectionParams.setSoTimeout(localBasicHttpParams, 10000);

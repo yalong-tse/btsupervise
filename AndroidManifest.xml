@@ -31,7 +31,7 @@
             android:label="@string/title_activity_task" >
         </activity>
         
-        <service android:enabled="true" android:name="com.dreaming.btsupervise.net.MainService">
+        <service android:enabled="true" android:name="com.dreaming.btsupervise.net.GatherTaskService">
 			<intent-filter>
 			<action android:name="com.dreaming.btsupervise.net.MainService" />
 			</intent-filter>
