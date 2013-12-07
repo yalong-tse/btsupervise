@@ -59,7 +59,6 @@ public class MarketMonitorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_market_monitor);
 		
-		
 		//refreshui();
 		//启动服务
         //Intent intent = new Intent("com.dreaming.btsupervise.net.MainService");
