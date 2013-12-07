@@ -74,7 +74,6 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 	public View getView(int position, View convertview, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		
-		Log.d("ADAPTER", "111111111111111111111");
 		
 		MonitorItemView itemviews = null;
 		if(convertview==null)
@@ -86,24 +85,17 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 			itemviews.tv_buyprice = (TextView) convertview.findViewById(R.id.buyprice);
 			itemviews.tv_sellprice = (TextView) convertview.findViewById(R.id.sellprice);
 			itemviews.tv_amount = (TextView) convertview.findViewById(R.id.exchangeamount);
-			
 			convertview.setTag(itemviews);
-			
 		}
 		else
 		{
 			itemviews = (MonitorItemView) convertview.getTag();
 		}
-		
-		
 		itemviews.tv_name.setText(listItems.get(position).get("name").toString());
 		itemviews.tv_amount.setText(listItems.get(position).get("vol").toString());
 		itemviews.tv_buyprice.setText(listItems.get(position).get("buy").toString());
 		itemviews.tv_sellprice.setText(listItems.get(position).get("sell").toString());
 		itemviews.tv_lastprice.setText(listItems.get(position).get("last").toString());
-		
-		Log.d("ADAPTER", "2222222222222222");
-		
 		return convertview;
 	}
 

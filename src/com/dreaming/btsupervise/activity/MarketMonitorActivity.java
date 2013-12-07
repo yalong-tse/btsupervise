@@ -60,13 +60,6 @@ public class MarketMonitorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_market_monitor);
 		
-			new AlertDialog.Builder(this)
-			.setTitle("确认")
-			.setMessage("确定吗？")  
-			.setPositiveButton("是", null)  
-			.setNegativeButton("否", null)  
-			.show(); 
-		
 		//refreshui();
 		//启动服务
         //Intent intent = new Intent("com.dreaming.btsupervise.net.MainService");
@@ -101,8 +94,6 @@ public class MarketMonitorActivity extends Activity {
 	private List<Map<String,Object>> getListItems()
 	{
 		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
-		//BTCList.getInstance().setBtcs(btcs);
-		Log.d("TEST",BTCList.getInstance().getBtcs().size() + "===========");
 		for(Btc btc: BTCList.getInstance().getBtcs())
 		{
 			Map<String,Object> map = new HashMap<String,Object>();

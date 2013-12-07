@@ -58,9 +58,8 @@ public class GatherTaskService implements Runnable {
 			msg.sendToTarget();
 			try 
 			{
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -69,25 +68,18 @@ public class GatherTaskService implements Runnable {
 
 	public Btc getdata() {
 		String paramString = "比特币中国";
-		//ServerMethod sm = new ServerMethod();
 		JSONObject paramJSONObject = null;
 		Btc localBtc = new Btc();
-		
 		try 
 		{
 			TaskParams localTaskParams = new TaskParams();
 			localTaskParams.url = "https://data.btcchina.com/data/ticker";
-			localTaskParams.singletonName = "比特币中国";
+			localTaskParams.singletonName = " btcchina";
 			localTaskParams.taskId = 100;
-			Log.d("TEST", "qianjind" + localTaskParams.url);
 			HttpResponse localHttpResponse = getHttpClient().execute(new HttpGet(localTaskParams.url));
 			paramString = EntityUtils.toString(localHttpResponse.getEntity(),"utf-8");
-			// Log.i(TAG, "result = " + Tools.decode(paramString));
-			Log.d("TEST", "qianjine" + paramString);
 			paramJSONObject = new JSONObject(paramString);
 
-			Log.d("TEST", "qianjinf");
-			// this.taskParams.resultData.btc = localBtc;
 			JSONObject localJSONObject = paramJSONObject.getJSONObject("ticker");
 			localBtc.high = localJSONObject.getDouble("high");
 			localBtc.low = localJSONObject.getDouble("low");
@@ -95,26 +87,12 @@ public class GatherTaskService implements Runnable {
 			localBtc.last = localJSONObject.getDouble("last");
 			localBtc.sell = localJSONObject.getDouble("sell");
 			localBtc.buy = localJSONObject.getDouble("buy");
-			localBtc.name = paramString;
-			
-			Log.d("TEST", "qianjin" + localBtc.buy);
-			Log.d("TEST", "qianjin" + localBtc.high);
-			Log.d("TEST", "qianjin" + localBtc.low);
-			Log.d("TEST", "qianjin" + localBtc.vol);
-			Log.d("TEST", "qianjin" + localBtc.last);
-			Log.d("TEST", "qianjin" + localBtc.sell);
-			Log.d("TEST", "qianjin" + localBtc.buy);
-			
-			return localBtc;
-			
+			localBtc.name = localTaskParams.singletonName;
 		} catch (JSONException e) {
 
-			// TODO Auto-generated catch block
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return localBtc;
