@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -35,6 +36,12 @@ public class MarketMonitorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_market_monitor);
 		
+			new AlertDialog.Builder(this)
+			.setTitle("确认")
+			.setMessage("确定吗？")  
+			.setPositiveButton("是", null)  
+			.setNegativeButton("否", null)  
+			.show(); 
 		
 		//refreshui();
 		//启动服务
