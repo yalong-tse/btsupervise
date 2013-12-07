@@ -3,7 +3,22 @@ package com.dreaming.btsupervise.net;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+
+import java.io.IOException;
 import java.util.HashMap;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import com.dreaming.btsupervise.db.BtcService;
 
 public abstract class Task
   implements Runnable
@@ -54,27 +69,91 @@ public abstract class Task
 
   public final Object Execute()
   {
-    if (this.onStartListen != null)
-      this.onStartListen.onStart(this.taskId);
-    if (this.onSystemStartListen != null)
-      this.onSystemStartListen.onSystemStart(this.taskId);
-    this.status = 2;
-    Object localObject = cacheData(this.taskParams);
-    this.result = localObject;
-    if (localObject == null)
-      this.result = obtainData(this.result, this.taskParams);
-    if (this.status != 3)
-    {
-      if (this.handler != null)
-        this.handler.obtainMessage(this.taskId, this.result).sendToTarget();
-      if (this.onFinishListen != null)
-        this.onFinishListen.OnFinish(this.taskId, this.result);
-    }
-    if (this.onSystemFinishListen != null)
-      this.onSystemFinishListen.OnSystemFinish(this.taskId, this.result, this);
-    this.status = 1;
-    return this.result;
+	  String paramString= "比特币中国";
+	  ServerMethod sm = new ServerMethod();
+	  Log.d("TEST","qianjina");
+	  JSONObject paramJSONObject = null;
+	  BtcService localBtcService = new BtcService(this.context);
+	  Log.d("TEST","qianjinb");
+	  //Btc localBtc = new Btc();
+	  Log.d("TEST","qianjinc"+paramString);
+	  try {
+		   TaskParams localTaskParams = new TaskParams();
+		    localTaskParams.url = "https://data.btcchina.com/data/ticker";
+		    localTaskParams.singletonName = "比特币中国";
+		    localTaskParams.taskId = 100;
+		    Log.d("TEST","qianjind"+localTaskParams.url);
+		   HttpResponse localHttpResponse = getHttpClient().execute(new HttpGet(localTaskParams.url));
+		   paramString = EntityUtils.toString(localHttpResponse.getEntity(), "utf-8");
+		   //Log.i(TAG, "result = " + Tools.decode(paramString));
+		   Log.d("TEST","qianjine"+paramString);
+		  // paramJSONObject = new JSONObject(paramString);
+			
+			Log.d("TEST","qianjinf");
+			//this.taskParams.resultData.btc = localBtc;
+	//		JSONObject localJSONObject = paramJSONObject.getJSONObject("ticker");
+	//		localBtc.high = localJSONObject.getDouble("high");
+	//		localBtc.low = localJSONObject.getDouble("low");
+	//		localBtc.vol = localJSONObject.getDouble("vol");
+	//		localBtc.last = localJSONObject.getDouble("last");
+	//		localBtc.sell = localJSONObject.getDouble("sell");
+	//		localBtc.buy = localJSONObject.getDouble("buy");
+	//		Log.d("TEST","qianjin"+localBtc.buy);
+	//		Log.d("TEST","qianjin"+localBtc.high);
+	//		Log.d("TEST","qianjin"+localBtc.low);
+	//		Log.d("TEST","qianjin"+localBtc.vol);
+	//		Log.d("TEST","qianjin"+localBtc.last);
+	//		Log.d("TEST","qianjin"+localBtc.sell);
+	//		Log.d("TEST","qianjin"+localBtc.buy);
+			// TODO Auto-generated catch block
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		if (this.sharedPrefs.getBoolean("show比特币中国", false))
+//		{
+//			//localBtcService.saveOrUpdate(localBtc);
+//		}
+//		else
+//		{
+//			localBtcService.deleteByName("比特币中国");
+//		}	
+	  return null;
   }
+  
+  public HttpClient getHttpClient()
+  {
+    BasicHttpParams localBasicHttpParams = new BasicHttpParams();
+    HttpConnectionParams.setConnectionTimeout(localBasicHttpParams, 10000);
+    HttpConnectionParams.setSoTimeout(localBasicHttpParams, 10000);
+    return new DefaultHttpClient(localBasicHttpParams);
+  }
+//  public final Object Execute()
+//  {
+//    if (this.onStartListen != null)
+//      this.onStartListen.onStart(this.taskId);
+//    if (this.onSystemStartListen != null)
+//      this.onSystemStartListen.onSystemStart(this.taskId);
+//    this.status = 2;
+//    Object localObject = cacheData(this.taskParams);
+//    this.result = localObject;
+//    if (localObject == null)
+//      this.result = obtainData(this.result, this.taskParams);
+//    if (this.status != 3)
+//    {
+//      if (this.handler != null)
+//        this.handler.obtainMessage(this.taskId, this.result).sendToTarget();
+//      if (this.onFinishListen != null)
+//        this.onFinishListen.OnFinish(this.taskId, this.result);
+//    }
+//    if (this.onSystemFinishListen != null)
+//      this.onSystemFinishListen.OnSystemFinish(this.taskId, this.result, this);
+//    this.status = 1;
+//    return this.result;
+//  }
 
   public void cacheClear()
   {
