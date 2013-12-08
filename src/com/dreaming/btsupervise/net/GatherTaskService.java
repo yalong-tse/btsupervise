@@ -91,7 +91,7 @@ public class GatherTaskService implements Runnable {
 			paramString = EntityUtils.toString(localHttpResponse.getEntity(),"utf-8");
 			Log.d("test", paramString);
 			paramJSONObject = new JSONObject(paramString);
-			JSONParser parser = new JSONParser(this.context,localTaskParams);
+			JsonParser parser = new JsonParser(this.context,localTaskParams);
 			switch (localTaskParams.taskId) 
 			{
 			case 100:

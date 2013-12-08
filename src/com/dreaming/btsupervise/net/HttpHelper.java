@@ -43,7 +43,7 @@ public class HttpHelper
 
 		if (i == 200) 
 		{
-			JSONParser localJsonParser = new JSONParser(this.context,this.taskParams);
+			JsonParser localJsonParser = new JsonParser(this.context,this.taskParams);
 			this.taskParams.resultData.result = localJsonParser.parseJson(str);
 		}
 		
@@ -80,7 +80,7 @@ public class HttpHelper
 		Log.i(TAG, "result = " + str);
 		if (i == 200)
 		{
-			localResultData.result = new JSONParser(this.context,this.taskParams).parseJson(str);
+			localResultData.result = new JsonParser(this.context,this.taskParams).parseJson(str);
 		}
 		
 		return localResultData;

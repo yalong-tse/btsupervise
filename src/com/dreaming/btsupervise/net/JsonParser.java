@@ -17,14 +17,14 @@ import com.dreaming.btsupervise.beans.Trade;
 import com.dreaming.btsupervise.db.BtcService;
 import com.dreaming.btsupervise.utils.GlobalConstants;
 
-public class JSONParser 
+public class JsonParser 
 {
 	private static final int MAX_NUM = 60;
 	private Context context;
 	private SharedPreferences sharedPrefs;
 	private TaskParams taskParams;
 
-	public JSONParser(Context paramContext, TaskParams paramTaskParams) {
+	public JsonParser(Context paramContext, TaskParams paramTaskParams) {
 		this.context = paramContext;
 		this.taskParams = paramTaskParams;
 		
