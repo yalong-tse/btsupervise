@@ -3,14 +3,17 @@ package com.dreaming.btsupervise.adapter;
 import java.util.List;
 import java.util.Map;
 
-import com.dreaming.btsupervise.R;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.dreaming.btsupervise.R;
 
 
 /**
@@ -70,6 +73,7 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 		return 0;
 	}
 
+	@SuppressLint("ResourceAsColor")
 	@Override
 	public View getView(int position, View convertview, ViewGroup parent) {
 		// TODO Auto-generated method stub
@@ -96,6 +100,14 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 		itemviews.tv_buyprice.setText(listItems.get(position).get("buy").toString());
 		itemviews.tv_sellprice.setText(listItems.get(position).get("sell").toString());
 		itemviews.tv_lastprice.setText(listItems.get(position).get("last").toString());
+		if(null!=listItems.get(position).get("state")&&listItems.get(position).get("state").toString().equals("-1"))
+		{
+			itemviews.tv_lastprice.setTextColor(Color.rgb(255, 0, 0));   
+		}
+		else if(null!=listItems.get(position).get("state")&&listItems.get(position).get("state").toString().equals("1"))
+		{
+			itemviews.tv_lastprice.setTextColor(Color.rgb(120, 188, 120));   
+		}
 		return convertview;
 	}
 

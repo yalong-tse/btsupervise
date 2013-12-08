@@ -23,7 +23,7 @@ public class TaskParamsManager
   private String btctradeLtcTradeUrl = "http://www.btctrade.com/api/trades?coin=2";
   private String btctradeLtcUrl = "http://www.btctrade.com/api/ticker?coin=2";
   private String btctradeTradeUrl = "http://www.btctrade.com/btc_trades";
-  private String btctradeUrl = "http://www.btctrade.com/api/ticker";
+  private String btctradeUrl = "http://www.btcclubs.com/api/ticker";
   private String bterDeepUrl = "https://bter.com/api/1/depth/btc_cny";
   private String bterTradeUrl = "https://bter.com/api/1/trade/btc_cny";
   private String bterUrl = "https://bter.com/api/1/ticker/btc_cny";

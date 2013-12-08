@@ -151,6 +151,7 @@ public class MainActivity extends Activity {
 	    localEditor.putBoolean("show火币网", true);
 	    localEditor.putBoolean("showbtc-e(ltc)", true);
 	    localEditor.putBoolean("showFXBTC(ltc)", true);
+	    localEditor.putBoolean("showBitstamp", true);
 	    
 	    // 定义顺序
 	    localEditor.putInt("orderMt.Gox", 1);

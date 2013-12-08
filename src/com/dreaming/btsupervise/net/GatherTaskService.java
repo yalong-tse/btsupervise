@@ -14,9 +14,13 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.dreaming.btsupervise.activity.MainActivity;
+import com.dreaming.btsupervise.activity.MarketMonitorActivity;
 import com.dreaming.btsupervise.beans.Btc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -48,8 +52,21 @@ public class GatherTaskService implements Runnable {
 			Log.d("调试", "开始线程");
 			Message msg = mHandler.obtainMessage();
 			msg.what = 1;
-			getdata();
-			//msg.obj = btc;
+			TaskParams localTaskParams = new TaskParams();
+			localTaskParams = TaskParamsManager.getInstance().getBtcchinaParams();
+			getdata(localTaskParams);
+			localTaskParams = TaskParamsManager.getInstance().getBitstampParams();
+			getdata(localTaskParams);
+			localTaskParams = TaskParamsManager.getInstance().getOkcoinParams();
+			getdata(localTaskParams);
+			localTaskParams = TaskParamsManager.getInstance().getMtgoxParams();
+			getdata(localTaskParams);
+			localTaskParams = TaskParamsManager.getInstance().getHuobiParams();
+			getdata(localTaskParams);
+//			localTaskParams = TaskParamsManager.getInstance().getBtctradeParams();
+//			getdata(localTaskParams);
+			localTaskParams = TaskParamsManager.getInstance().get796UrlParams();
+			getdata(localTaskParams);
 			msg.sendToTarget();
 			try 
 			{
@@ -64,22 +81,41 @@ public class GatherTaskService implements Runnable {
 	/**
 	 * 此处解析完毕后直接存储到DB 
 	 * */
-	public void getdata() {
+	public void getdata(TaskParams localTaskParams) {
 		String paramString;
 		JSONObject paramJSONObject = null;
 		Btc localBtc = new Btc();
 		try 
 		{
-			TaskParams localTaskParams = new TaskParams();
-			localTaskParams.url = "https://data.btcchina.com/data/ticker";
-			localTaskParams.singletonName = "btcchina";
-			localTaskParams.taskId = 100;
 			HttpResponse localHttpResponse = getHttpClient().execute(new HttpGet(localTaskParams.url));
 			paramString = EntityUtils.toString(localHttpResponse.getEntity(),"utf-8");
+			Log.d("test", paramString);
 			paramJSONObject = new JSONObject(paramString);
 			JSONParser parser = new JSONParser(this.context,localTaskParams);
-			parser.parseBtcchina(paramJSONObject);
-			
+			switch (localTaskParams.taskId) 
+			{
+			case 100:
+				parser.parseBtcchina(paramJSONObject);
+				break;
+			case 109:
+				parser.parse796(paramJSONObject);
+				break;
+			case 106:
+				parser.parseBitstamp(paramJSONObject);
+				break;
+			case 104:
+				parser.parseOkCoin(paramJSONObject);
+				break;
+			case 105:
+				parser.parseMtgox(paramJSONObject);
+				break;
+			case 110:
+				parser.parseHuobi(paramJSONObject);
+				break;
+			case 101:
+				parser.parseBtctrade(paramJSONObject);
+				break;
+			}
 		} 
 		catch (JSONException e) 
 		{

@@ -14,7 +14,6 @@ import android.util.Log;
 
 import com.dreaming.btsupervise.beans.Btc;
 import com.dreaming.btsupervise.beans.Trade;
-import com.dreaming.btsupervise.beans.Trust;
 import com.dreaming.btsupervise.db.BtcService;
 import com.dreaming.btsupervise.utils.GlobalConstants;
 
@@ -64,64 +63,148 @@ public class JSONParser
 			localBtcService.deleteByName("比特币中国");
 			result = true;
 		}
-		
 		return result;
-		
 	}
-
-	// private void parseBtcchinaDeep(JSONObject paramJSONObject)
-	// throws JSONException
-	// {
-	// JSONArray localJSONArray1 = paramJSONObject.getJSONArray("bids");
-	// ArrayList localArrayList1 = new ArrayList();
-	// int i = localJSONArray1.length();
-	// if (i > 60)
-	// i = 60;
-	// double d = 0.0D;
-	// int j = 0;
-	// JSONArray localJSONArray3;
-	// ArrayList localArrayList2;
-	// int k=0;
-	// int m=0;
-	// if (j >= i)
-	// {
-	// this.taskParams.resultData.buys = localArrayList1;
-	// localJSONArray3 = paramJSONObject.getJSONArray("asks");
-	// localArrayList2 = new ArrayList();
-	// k = localJSONArray3.length();
-	// m = 0;
-	// if (k > 60)
-	// m = k - 60;
-	// }
-	// for (int n = k - 1; ; n--)
-	// {
-	// if (n < m)
-	// {
-	// this.taskParams.resultData.maxTrust = d;
-	// this.taskParams.resultData.sells = localArrayList2;
-	// return;
-	// JSONArray localJSONArray2 = localJSONArray1.getJSONArray(j);
-	// Trust localTrust1 = new Trust();
-	// localTrust1.price = localJSONArray2.getDouble(0);
-	// localTrust1.amount = localJSONArray2.getDouble(1);
-	// localArrayList1.add(localTrust1);
-	// if (localTrust1.amount > d)
-	// d = localTrust1.amount;
-	// j++;
-	// break;
-	// }
-	// JSONArray localJSONArray4 = localJSONArray3.getJSONArray(n);
-	// Trust localTrust2 = new Trust();
-	// localTrust2.price = localJSONArray4.getDouble(0);
-	// localTrust2.amount = localJSONArray4.getDouble(1);
-	// localArrayList2.add(localTrust2);
-	// if (localTrust2.amount > d)
-	// d = localTrust2.amount;
-	// }
-	// }
-
 	
+	public boolean parseBitstamp(JSONObject paramJSONObject)throws JSONException
+	  {
+		Log.d("qianjin", "111111");
+		
+	    BtcService localBtcService = new BtcService(this.context);
+	    Btc localBtc = new Btc(this.sharedPrefs.getInt("orderBitstamp", 1), "Bitstamp", 2);
+	    Log.d("qianjin", ""+paramJSONObject.getDouble("high"));
+	    Log.d("qianjin", ""+paramJSONObject.getDouble("low"));
+	    Log.d("qianjin", ""+paramJSONObject.getDouble("volume"));
+	    Log.d("qianjin", ""+paramJSONObject.getDouble("last"));
+	    Log.d("qianjin", ""+paramJSONObject.getDouble("ask"));
+	    Log.d("qianjin", ""+paramJSONObject.getDouble("bid"));
+	    
+	    localBtc.high = paramJSONObject.getDouble("high");
+	    localBtc.low = paramJSONObject.getDouble("low");
+	    localBtc.vol = paramJSONObject.getDouble("volume");
+	    localBtc.last = paramJSONObject.getDouble("last");
+	    localBtc.sell = paramJSONObject.getDouble("ask");
+	    localBtc.buy = paramJSONObject.getDouble("bid");
+	    if (this.sharedPrefs.getBoolean("showBitstamp", true))
+	    {
+	    	localBtcService.saveOrUpdate(localBtc);
+	    }
+	    else
+	    {
+	    	localBtcService.deleteByName("Bitstamp");
+	    }
+	    return true;
+	  }
 	
+	 public boolean parseOkCoin(JSONObject paramJSONObject)
+	    throws JSONException
+	  {
+		BtcService localBtcService = new BtcService(this.context);
+	    JSONObject localJSONObject = paramJSONObject.getJSONObject("ticker");
+	    Btc localBtc = new Btc(this.sharedPrefs.getInt("orderOkCoin", 1), "OkCoin", 1);
+	    localBtc.high = localJSONObject.getDouble("high");
+	    localBtc.low = localJSONObject.getDouble("low");
+	    localBtc.vol = localJSONObject.getDouble("vol");
+	    localBtc.last = localJSONObject.getDouble("last");
+	    localBtc.sell = localJSONObject.getDouble("sell");
+	    localBtc.buy = localJSONObject.getDouble("buy");
+		if (this.sharedPrefs.getBoolean("showOkCoin", true))
+	    {
+	    	localBtcService.saveOrUpdate(localBtc);
+	    }
+	    else
+	    {
+	    	localBtcService.deleteByName("OkCoin");
+	    }
+	    return true;
+	 }
+	 
+	 public boolean parseMtgox(JSONObject paramJSONObject)
+	    throws JSONException
+	  {
+	    BtcService localBtcService = new BtcService(this.context);
+	    Btc localBtc = new Btc(this.sharedPrefs.getInt("orderMt.Gox", 1), "Mt.Gox", 2);
+	    JSONObject localJSONObject = paramJSONObject.getJSONObject("data");
+	    localBtc.high = localJSONObject.getJSONObject("high").getDouble("value");
+	    localBtc.low = localJSONObject.getJSONObject("low").getDouble("value");
+	    localBtc.vol = localJSONObject.getJSONObject("vol").getDouble("value");
+	    localBtc.last = localJSONObject.getJSONObject("last").getDouble("value");
+	    localBtc.buy = localJSONObject.getJSONObject("buy").getDouble("value");
+	    localBtc.sell = localJSONObject.getJSONObject("sell").getDouble("value");
+	    if (this.sharedPrefs.getBoolean("showMt.Gox", true))
+	    {
+	    	localBtcService.saveOrUpdate(localBtc);
+	    }
+	    else
+	    {
+	    	localBtcService.deleteByName("Mt.Gox");
+	    }
+	    return true;
+	  }
+	 
+	 public boolean parseHuobi(JSONObject paramJSONObject)
+	    throws JSONException
+	  {
+		BtcService localBtcService = new BtcService(this.context);
+	    JSONObject localJSONObject = paramJSONObject.getJSONObject("ticker");
+	    Btc localBtc = new Btc(this.sharedPrefs.getInt("order火币网", 1), "火币网", 1);
+	    localBtc.high = localJSONObject.getDouble("high");
+	    localBtc.low = localJSONObject.getDouble("low");
+	    localBtc.vol = localJSONObject.getDouble("vol");
+	    localBtc.last = localJSONObject.getDouble("last");
+	    localBtc.sell = localJSONObject.getDouble("sell");
+	    localBtc.buy = localJSONObject.getDouble("buy");
+	    if (this.sharedPrefs.getBoolean("show火币网", true))
+	      localBtcService.saveOrUpdate(localBtc);
+	    else
+	    {
+	      localBtcService.deleteByName("火币网");
+	    }
+	    return true;
+	  }
+	 
+	 public boolean parseBtctrade(JSONObject paramJSONObject)
+	    throws JSONException
+	  {
+		Log.d("qianjin","qianjin++++"+paramJSONObject.getDouble("high"));
+	    BtcService localBtcService = new BtcService(this.context);
+	    Btc localBtc = new Btc(this.sharedPrefs.getInt("orderbtcTrade", 1), "btcTrade", 1);
+	    localBtc.high = paramJSONObject.getDouble("high");	
+	    localBtc.low = paramJSONObject.getDouble("low");
+	    localBtc.vol = paramJSONObject.getDouble("vol");
+	    localBtc.last = paramJSONObject.getDouble("last");
+	    localBtc.sell = paramJSONObject.getDouble("sell");
+	    localBtc.buy = paramJSONObject.getDouble("buy");
+	    if (this.sharedPrefs.getBoolean("showbtcTrade", true))
+	      localBtcService.saveOrUpdate(localBtc);
+	    else
+	    {
+	      localBtcService.deleteByName("btcTrade");
+	    }
+	    return true;
+	  }
+	
+	public Boolean parse796(JSONObject paramJSONObject) throws JSONException
+	  {
+	    BtcService localBtcService = new BtcService(this.context);
+	    Btc localBtc = new Btc(this.sharedPrefs.getInt("order796期货", 1), "796期货", 2);
+	    JSONObject localJSONObject;
+		localJSONObject = paramJSONObject.getJSONObject("return");
+	    localBtc.high = localJSONObject.getDouble("high");
+	    localBtc.low = localJSONObject.getDouble("low");
+	    localBtc.vol = localJSONObject.getDouble("vol");
+	    localBtc.last = localJSONObject.getDouble("last");
+	    localBtc.sell = localJSONObject.getDouble("sell");
+	    localBtc.buy = localJSONObject.getDouble("buy");
+	    if (this.sharedPrefs.getBoolean("show796期货", true))
+	      localBtcService.saveOrUpdate(localBtc);
+	    else
+	      localBtcService.deleteByName("796期货");
+	    return true;
+	  }
+	
+	 
+	 
 	private void parseBtcchinaTrade(JSONArray paramJSONArray)
 			throws JSONException {
 		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
@@ -151,7 +234,6 @@ public class JSONParser
 				d = localTrade.amount;
 		}
 	}
-
 	
 	/**
 	 * 

@@ -1,7 +1,9 @@
 package com.dreaming.btsupervise.db;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -40,14 +42,14 @@ public class BtcService extends BaseService
 		String[] arrayOfString1 = new String[0];
 		String[] arrayOfString2 = new String[1];
 		arrayOfString2[0] = paramString;
+		
 		Cursor localCursor = paramSQLiteDatabase.query("btc", arrayOfString1,"name=?", arrayOfString2, null, null, null);
 		
 		if ((localCursor != null) && (localCursor.getCount() > 0))
 		{
-			localCursor.close();
 			result = true;
 		}
-
+		localCursor.close();
 		return result;
 	}
 
@@ -101,9 +103,8 @@ public class BtcService extends BaseService
 			localBtc.vol = localCursor.getDouble(localCursor.getColumnIndex("vol"));
 			localBtc.kind = localCursor.getInt(localCursor.getColumnIndex("kind"));
 			localBtc.state = localCursor.getInt(localCursor.getColumnIndex("state"));
-			localCursor.close();
 		}
-		
+		localCursor.close();
 		return localBtc;
 	}
 
@@ -138,6 +139,7 @@ public class BtcService extends BaseService
 		}
 		
 		Log.d("DB","query database finish");
+		localCursor.close();
 		return btcList;
 	}
 
@@ -146,14 +148,15 @@ public class BtcService extends BaseService
 	 * */
 	public void save(Btc paramBtc, SQLiteDatabase paramSQLiteDatabase) {
 		ContentValues localContentValues = new ContentValues();
+		DecimalFormat df=new DecimalFormat(".#");
 		localContentValues.put("id", Integer.valueOf(paramBtc.order));
 		localContentValues.put("name", paramBtc.name);
-		localContentValues.put("last", Double.valueOf(paramBtc.last));
-		localContentValues.put("buy", Double.valueOf(paramBtc.buy));
-		localContentValues.put("sell", Double.valueOf(paramBtc.sell));
-		localContentValues.put("high", Double.valueOf(paramBtc.high));
-		localContentValues.put("low", Double.valueOf(paramBtc.low));
-		localContentValues.put("vol", Double.valueOf(paramBtc.vol));
+		localContentValues.put("last", df.format(Double.valueOf(paramBtc.last)));
+		localContentValues.put("buy", df.format(Double.valueOf(paramBtc.buy)));
+		localContentValues.put("sell", df.format(Double.valueOf(paramBtc.sell)));
+		localContentValues.put("high", df.format(Double.valueOf(paramBtc.high)));
+		localContentValues.put("low", df.format(Double.valueOf(paramBtc.low)));
+		localContentValues.put("vol", df.format(Double.valueOf(paramBtc.vol)));
 		localContentValues.put("kind", Integer.valueOf(paramBtc.kind));
 		localContentValues.put("time", paramBtc.time);
 		localContentValues.put("state", Integer.valueOf(paramBtc.state));
@@ -171,12 +174,13 @@ public class BtcService extends BaseService
 		ContentValues localContentValues = new ContentValues();
 		localContentValues.put("id", Integer.valueOf(paramBtc.order));
 		localContentValues.put("name", paramBtc.name);
-		localContentValues.put("last", Double.valueOf(paramBtc.last));
-		localContentValues.put("buy", Double.valueOf(paramBtc.buy));
-		localContentValues.put("sell", Double.valueOf(paramBtc.sell));
-		localContentValues.put("high", Double.valueOf(paramBtc.high));
-		localContentValues.put("low", Double.valueOf(paramBtc.low));
-		localContentValues.put("vol", Double.valueOf(paramBtc.vol));
+		DecimalFormat df=new DecimalFormat(".#");
+		localContentValues.put("last", df.format(Double.valueOf(paramBtc.last)));
+		localContentValues.put("buy", df.format(Double.valueOf(paramBtc.buy)));
+		localContentValues.put("sell", df.format(Double.valueOf(paramBtc.sell)));
+		localContentValues.put("high", df.format(Double.valueOf(paramBtc.high)));
+		localContentValues.put("low", df.format(Double.valueOf(paramBtc.low)));
+		localContentValues.put("vol", df.format(Double.valueOf(paramBtc.vol)));
 		localContentValues.put("kind", Integer.valueOf(paramBtc.kind));
 		localContentValues.put("time", paramBtc.time);
 		localContentValues.put("state", Integer.valueOf(0));

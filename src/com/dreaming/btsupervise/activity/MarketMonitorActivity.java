@@ -60,7 +60,7 @@ public class MarketMonitorActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_market_monitor);
 		
-		//refreshui();
+		refreshui();
 		//启动服务
         //Intent intent = new Intent("com.dreaming.btsupervise.net.MainService");
         //bindService(new Intent(ServiceBtc.ACTION), conn, BIND_AUTO_CREATE);  
@@ -106,6 +106,7 @@ public class MarketMonitorActivity extends Activity {
 			map.put("sell", btc.sell);
 			map.put("vol", btc.vol);
 			map.put("last", btc.last);
+			map.put("state", btc.state);
 			result.add(map);
 		}
 		
