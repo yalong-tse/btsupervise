@@ -190,11 +190,15 @@ public class BtcService extends BaseService
 		{
 			if ((localBtc.last != 0.0D) && (paramBtc.last != 0.0D)) 
 			{
-				if (paramBtc.last <= localBtc.last)
+				if (paramBtc.last < localBtc.last)
 					localContentValues.put("state", Integer.valueOf(1));
-				else if(paramBtc.last >= localBtc.last)
+				else if(paramBtc.last > localBtc.last)
 				{
 					localContentValues.put("state", Integer.valueOf(-1));
+				}
+				else 
+				{
+					localContentValues.put("state", Integer.valueOf(0));
 				}
 			}
 

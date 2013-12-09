@@ -38,6 +38,8 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 		TextView tv_lastprice;
 		TextView tv_buyprice;
 		TextView tv_sellprice;
+		TextView tv_highprice;
+		TextView tv_lowprice;
 		TextView tv_amount;
 	}
 	
@@ -88,6 +90,8 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 			itemviews.tv_lastprice = (TextView) convertview.findViewById(R.id.lastprice);
 			itemviews.tv_buyprice = (TextView) convertview.findViewById(R.id.buyprice);
 			itemviews.tv_sellprice = (TextView) convertview.findViewById(R.id.sellprice);
+			itemviews.tv_highprice = (TextView) convertview.findViewById(R.id.highprice);
+			itemviews.tv_lowprice = (TextView) convertview.findViewById(R.id.lowprice);
 			itemviews.tv_amount = (TextView) convertview.findViewById(R.id.exchangeamount);
 			convertview.setTag(itemviews);
 		}
@@ -100,6 +104,8 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 		itemviews.tv_buyprice.setText(listItems.get(position).get("buy").toString());
 		itemviews.tv_sellprice.setText(listItems.get(position).get("sell").toString());
 		itemviews.tv_lastprice.setText(listItems.get(position).get("last").toString());
+		itemviews.tv_highprice.setText(listItems.get(position).get("high").toString());
+		itemviews.tv_lowprice.setText(listItems.get(position).get("low").toString());
 		if(null!=listItems.get(position).get("state")&&listItems.get(position).get("state").toString().equals("-1"))
 		{
 			itemviews.tv_lastprice.setTextColor(Color.rgb(255, 0, 0));   
@@ -108,7 +114,13 @@ public class MarketMonitorListviewAdapter extends BaseAdapter {
 		{
 			itemviews.tv_lastprice.setTextColor(Color.rgb(120, 188, 120));   
 		}
+		else
+		{
+			itemviews.tv_lastprice.setTextColor(Color.rgb(0, 0, 0));   
+		}
 		return convertview;
 	}
+	
+	
 
 }

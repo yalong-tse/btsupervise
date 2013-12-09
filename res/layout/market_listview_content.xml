@@ -42,6 +42,24 @@
             android:textSize="12sp" />
     
     <TextView
+            android:id="@+id/highprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/high_price"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    
+    <TextView
+            android:id="@+id/lowprice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/low_price"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    
+    <TextView
             android:id="@+id/exchangeamount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

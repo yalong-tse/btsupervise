@@ -14,9 +14,11 @@
 
     <!-- 大盘趋势 -->
     <string name="platform_name">交易平台</string>
-    <string name="last_price">最近成交价</string>
-    <string name="buy_price">买一价</string>
-    <string name="sell_price">卖一价</string>
+    <string name="last_price">最近成交</string>
+    <string name="buy_price">买</string>
+    <string name="sell_price">卖</string>
+    <string name="high_price">最高</string>
+    <string name="low_price">最低</string>
     <string name="exchange_amount">成交量</string>
     <string name="title_activity_task">TaskActivity</string>
 
