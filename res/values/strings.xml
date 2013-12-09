@@ -7,7 +7,7 @@
     <string name="hello_world">Hello world!</string>
 
     <!-- 主界面 -->
-    <string name="main_ui">系统导航界面</string>
+    <string name="main_ui">实时行情</string>
     <string name="settings">设置</string>
     <string name="list_product_imageview_content">功能描述</string>
     <string name="title_activity_market_monitor">MarketMonitorActivity</string>
